@@ -48,19 +48,22 @@ target_sources(${CMAKE_PROJECT_NAME} PRIVATE
     HwDriver/mt6701/mt6701.c
     HwDriver/mt6701/mt6701_port.c
     User/User.c
-    User/uart_dbg.c
     FOC/foc.c
     3dpart/letter-shell/src/shell.c
     3dpart/letter-shell/src/shell_ext.c
     3dpart/letter-shell/src/shell_cmd_list.c
     3dpart/letter-shell/src/shell_companion.c
     3dpart/letter-shell/demo/stm32f4/shell_port.c
+    HwDriver/motor_pwm/motor_pwm.c
+    HwDriver/uart_dbg/uart_dbg.c
 )
 
 # Add include paths
 target_include_directories(${CMAKE_PROJECT_NAME} PRIVATE
     # Add user defined include paths
     HwDriver/mt6701
+    HwDriver/motor_pwm
+    HwDriver/uart_dbg
     FOC
     User
     3dpart/letter-shell/src
