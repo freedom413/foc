@@ -11,7 +11,7 @@
 
 #ifndef __SHELL_CFG_H__
 #define __SHELL_CFG_H__
-#include "stm32f4xx_hal.h"
+#define SHELL_CFG_USER "shell_cfg_user.h"
 #ifdef SHELL_CFG_USER
 #include SHELL_CFG_USER
 #endif

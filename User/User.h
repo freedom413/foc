@@ -6,6 +6,7 @@
 #include "tim.h"
 #include "usart.h"
 #include "gpio.h"
+#include "cmsis_os.h"
 
 void setup(void);
 void loop(void);

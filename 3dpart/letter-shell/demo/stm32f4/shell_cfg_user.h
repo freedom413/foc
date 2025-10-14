@@ -18,7 +18,7 @@
  * @brief 是否使用shell伴生对象
  *        一些扩展的组件(文件系统支持，日志工具等)需要使用伴生对象
  */
-#define     SHELL_USING_COMPANION       1
+// #define     SHELL_USING_COMPANION       1
 
 
 /**
@@ -63,18 +63,18 @@
  * @brief 使用锁
  * @note 使用shell锁时，需要对加锁和解锁进行实现
  */
-#define     SHELL_USING_LOCK            1
+// #define     SHELL_USING_LOCK            1
 
 /**
  * @brief shell内存分配
  *        shell本身不需要此接口，若使用shell伴生对象，需要进行定义
  */
-#define     SHELL_MALLOC(size)          pvPortMalloc(size)
+// #define     SHELL_MALLOC(size)          pvPortMalloc(size)
 
 /**
  * @brief shell内存释放
  *        shell本身不需要此接口，若使用shell伴生对象，需要进行定义
  */
-#define     SHELL_FREE(obj)             vPortFree(obj)
+// #define     SHELL_FREE(obj)             vPortFree(obj)
 
 #endif
