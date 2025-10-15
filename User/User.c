@@ -13,13 +13,19 @@
 #include "motor_pwm.h"
 
 
+void setupTaskFun(void const * argument)
+{
+    (void)argument;
+    setup();
+    vTaskDelete(NULL);
+}
+
 
 void setup(void)
 {
     userShellInit();
     mt6701_init(&hmag1, &hmag1_port, MT6701_MODE_SSI);
     motor_pwm_init();
-
     foc_alignSensor(7,1);
 }
 

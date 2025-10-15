@@ -3,6 +3,10 @@
 #include <stdint.h>
 #include "i2c.h"
 #include "stdio.h"
+#include "string.h"
+#include "FreeRTOS.h"
+#include "task.h"
+#include "shell.h"
 
 #ifdef __GNUC__
     #define PUTCHAR_PROTOTYPE int __io_putchar(int ch)
@@ -33,6 +37,53 @@ void vofa_just_float_send(uint8_t * data, uint8_t len)
     HAL_UART_Transmit(&huart1, tail, sizeof(tail), 0x1fff);
 }
 
+
+static char CPU_RunInfo[512];
+static void get_rtos_mem(void)
+{
+    memset(CPU_RunInfo, 0, 512);
+    vTaskList((char *)&CPU_RunInfo); //获取任务运行时间信息
+    printf("---------------------------------------------\r\n");
+    printf("任务名  \t状态\t优先级\t剩余栈\t序号\r\n");
+    printf("%s", CPU_RunInfo);
+    printf("---------------------------------------------\r\n");
+}
+
+SHELL_EXPORT_CMD(SHELL_CMD_PERMISSION(0)|SHELL_CMD_TYPE(SHELL_TYPE_CMD_FUNC)|SHELL_CMD_PARAM_NUM(0),
+cpumem, get_rtos_mem, cpu memory info);
+
+
+static void get_rtos_runtime(void const *argument)
+{
+    memset(CPU_RunInfo,0,512);
+    vTaskGetRunTimeStats((char *)&CPU_RunInfo);
+    printf("---------------------------------------------\r\n");
+    printf("任务名  \t运行计数\t使用率\r\n");
+    printf("%s", CPU_RunInfo);
+    printf("---------------------------------------------\r\n\n");
+}
+
+SHELL_EXPORT_CMD(SHELL_CMD_PERMISSION(0)|SHELL_CMD_TYPE(SHELL_TYPE_CMD_FUNC)|SHELL_CMD_PARAM_NUM(0),
+cpuload, get_rtos_runtime, cpu memory info);
+
+static volatile long long FreeRTOSRunTimeTicks;
+
+void configureTimerForRunTimeStats(void)
+{
+    FreeRTOSRunTimeTicks = 0;
+}
+
+unsigned long getRunTimeCounterValue(void)
+{
+    return FreeRTOSRunTimeTicks;
+}
+
+void task_info_inc_Callback(void)
+{
+    FreeRTOSRunTimeTicks++;
+}
+
+#if 0
 void i2c_addr_check(I2C_HandleTypeDef *hi2c)
 {
     HAL_StatusTypeDef result;
@@ -49,3 +100,4 @@ void i2c_addr_check(I2C_HandleTypeDef *hi2c)
     }
 
 }
+#endif

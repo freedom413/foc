@@ -326,11 +326,9 @@ static size_t shellExtParseNumber(char *string)
  * 
  * @param shell shell对象
  * @param var 变量
- * @param result 解析结果
- *
- * @return int 0 解析成功 --1 解析失败
+ * @return size_t 变量值
  */
-static int shellExtParseVar(Shell *shell, char *var, size_t *result)
+static size_t shellExtParseVar(Shell *shell, char *var)
 {
     ShellCommand *command = shellSeekCommand(shell,
                                              var + 1,
@@ -338,12 +336,11 @@ static int shellExtParseVar(Shell *shell, char *var, size_t *result)
                                              0);
     if (command)
     {
-        *result = shellGetVarValue(shell, command);
-        return 0;
+        return shellGetVarValue(shell, command);
     }
     else
     {
-        return -1;
+        return 0;
     }
 }
 
@@ -374,7 +371,8 @@ int shellExtParsePara(Shell *shell, char *string, char *type, size_t *result)
         }
         else if (*string == '$' && *(string + 1))
         {
-            return shellExtParseVar(shell, string, result);
+            *result = shellExtParseVar(shell, string);
+            return 0;
         }
         else if (*string)
         {
@@ -387,7 +385,8 @@ int shellExtParsePara(Shell *shell, char *string, char *type, size_t *result)
     {
         if (*string == '$' && *(string + 1))
         {
-            return shellExtParseVar(shell, string, result);
+            *result = shellExtParseVar(shell, string);
+            return 0;
         }
     #if SHELL_SUPPORT_ARRAY_PARAM == 1
         else if (type[0] == '[')

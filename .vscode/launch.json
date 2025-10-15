@@ -1,31 +1,6 @@
 {
     "configurations": [
         {
-            "type": "stgdbtarget",
-            "request": "launch",
-            "name": "STM32Cube: STM32 Launch Generic GDB Server",
-            "origin": "snippet",
-            "cwd": "${workspaceFolder}",
-            "preBuild": "${command:st-stm32-ide-debug-launch.build}",
-            "program": "${command:st-stm32-ide-debug-launch.get-projects-binary-from-context1}",
-            "gdb": "${command:st-stm32-ide-debug-launch.get-gdb-executable}",
-            "serverExe": "",
-            "serverParameters": [],
-            "serverHost": "localhost",
-            "serverPort": "",
-            "serverCwd": "",
-            "runEntry": "main",
-            "imagesAndSymbols": [
-                {
-                    "imageFileName": "${command:st-stm32-ide-debug-launch.get-projects-binary-from-context1}",
-                    "imageOffset": "",
-                    "symbolFileName": "${command:st-stm32-ide-debug-launch.get-projects-binary-from-context1}",
-                    "symbolOffset": ""
-                }
-            ],
-            "verbose": true
-        },
-        {
             "type": "stlinkgdbtarget",
             "request": "launch",
             "name": "STM32Cube: STM32 Launch ST-Link GDB Server",

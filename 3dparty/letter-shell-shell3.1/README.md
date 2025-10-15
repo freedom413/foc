@@ -1,8 +1,8 @@
 # letter shell 3.x
 
-![version](https://img.shields.io/badge/version-3.2.4-brightgreen.svg)
+![version](https://img.shields.io/badge/version-3.2.2-brightgreen.svg)
 ![standard](https://img.shields.io/badge/standard-c99-brightgreen.svg)
-![build](https://img.shields.io/badge/build-2024.07.31-brightgreen.svg)
+![build](https://img.shields.io/badge/build-2023.10.25-brightgreen.svg)
 ![license](https://img.shields.io/badge/license-MIT-brightgreen.svg)
 
 一个功能强大的嵌入式shell
@@ -195,7 +195,7 @@ letter shell 3.x同时支持两种形式的函数定义方式，形如main函数
 使用此方式，一个函数定义的例子如下：
 
 ```C
-int func(int argc, char *argv[])
+int func(int argc, char *agrv[])
 {
     printf("%dparameter(s)\r\n", argc);
     for (char i = 1; i < argc; i++)

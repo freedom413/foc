@@ -49,11 +49,11 @@ target_sources(${CMAKE_PROJECT_NAME} PRIVATE
     HwDriver/mt6701/mt6701_port.c
     User/User.c
     FOC/foc.c
-    3dpart/letter-shell/src/shell.c
-    3dpart/letter-shell/src/shell_ext.c
-    3dpart/letter-shell/src/shell_cmd_list.c
-    3dpart/letter-shell/src/shell_companion.c
-    3dpart/letter-shell/demo/stm32f4/shell_port.c
+    3dparty/letter-shell-shell3.1/src/shell.c
+    3dparty/letter-shell-shell3.1/src/shell_ext.c
+    3dparty/letter-shell-shell3.1/src/shell_cmd_list.c
+    3dparty/letter-shell-shell3.1/src/shell_companion.c
+    3dparty/letter-shell-shell3.1/demo/stm32-freertos/shell_port.c
     HwDriver/motor_pwm/motor_pwm.c
     HwDriver/uart_dbg/uart_dbg.c
 )
@@ -66,13 +66,14 @@ target_include_directories(${CMAKE_PROJECT_NAME} PRIVATE
     HwDriver/uart_dbg
     FOC
     User
-    3dpart/letter-shell/src
-    3dpart/letter-shell/demo/stm32f4
+    3dparty/letter-shell-shell3.1/src
+    3dparty/letter-shell-shell3.1/demo/stm32-freertos
 )
 
 # Add project symbols (macros)
 target_compile_definitions(${CMAKE_PROJECT_NAME} PRIVATE
     # Add user defined symbols
+    SHELL_CFG_USER=\"shell_cfg_user.h\"
 )
 
 # Remove wrong libob.a library dependency when using cpp files

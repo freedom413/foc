@@ -11,7 +11,7 @@
 
 #ifndef __SHELL_CFG_H__
 #define __SHELL_CFG_H__
-#define SHELL_CFG_USER "shell_cfg_user.h"
+
 #ifdef SHELL_CFG_USER
 #include SHELL_CFG_USER
 #endif
@@ -174,13 +174,13 @@
 #define     SHELL_SCAN_BUFFER          0
 #endif /** SHELL_SCAN_BUFFER */
 
-#ifndef SHELL_GET_TICK    
+#ifndef SHELL_GET_TICK
 /**
  * @brief 获取系统时间(ms)
  *        定义此宏为获取系统Tick，如`HAL_GetTick()`
  * @note 此宏不定义时无法使用双击tab补全命令help，无法使用shell超时锁定
  */
-#define     SHELL_GET_TICK()            HAL_GetTick()
+#define     SHELL_GET_TICK()            0
 #endif /** SHELL_GET_TICK */
 
 #ifndef SHELL_USING_LOCK
@@ -233,7 +233,7 @@
  * @brief shell默认用户密码
  *        若默认用户不需要密码，设为""
  */
-#define     SHELL_DEFAULT_USER_PASSWORD ""
+#define     SHELL_DEFAULT_USER_PASSWORD "1111"
 #endif /** SHELL_DEFAULT_USER_PASSWORD */
 
 #ifndef SHELL_LOCK_TIMEOUT
