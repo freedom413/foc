@@ -47,18 +47,16 @@
 /* USER CODE BEGIN Variables */
 
 /* USER CODE END Variables */
-osThreadId foc_taskHandle;
 osThreadId dbug_infoHandle;
-osThreadId setupTaskHandle;
+osThreadId entey_taskHandle;
 
 /* Private function prototypes -----------------------------------------------*/
 /* USER CODE BEGIN FunctionPrototypes */
 
 /* USER CODE END FunctionPrototypes */
 
-void foc_task_fun(void const * argument);
 void dbug_info_fun(void const * argument);
-void setupTaskFun(void const * argument);
+void entey_task_fun(void const * argument);
 
 void MX_FREERTOS_Init(void); /* (MISRA C 2004 rule 8.1) */
 
@@ -102,7 +100,8 @@ void vApplicationGetIdleTaskMemory( StaticTask_t **ppxIdleTaskTCBBuffer, StackTy
   */
 void MX_FREERTOS_Init(void) {
   /* USER CODE BEGIN Init */
-
+  extern void setup(void);
+  setup();
   /* USER CODE END Init */
 
   /* USER CODE BEGIN RTOS_MUTEX */
@@ -122,40 +121,18 @@ void MX_FREERTOS_Init(void) {
   /* USER CODE END RTOS_QUEUES */
 
   /* Create the thread(s) */
-  /* definition and creation of foc_task */
-  osThreadDef(foc_task, foc_task_fun, osPriorityRealtime, 0, 1000);
-  foc_taskHandle = osThreadCreate(osThread(foc_task), NULL);
-
   /* definition and creation of dbug_info */
-  osThreadDef(dbug_info, dbug_info_fun, osPriorityLow, 0, 1000);
+  osThreadDef(dbug_info, dbug_info_fun, osPriorityNormal, 0, 1000);
   dbug_infoHandle = osThreadCreate(osThread(dbug_info), NULL);
 
-  /* definition and creation of setupTask */
-  osThreadDef(setupTask, setupTaskFun, osPriorityRealtime, 0, 256);
-  setupTaskHandle = osThreadCreate(osThread(setupTask), NULL);
+  /* definition and creation of entey_task */
+  osThreadDef(entey_task, entey_task_fun, osPriorityRealtime, 0, 512);
+  entey_taskHandle = osThreadCreate(osThread(entey_task), NULL);
 
   /* USER CODE BEGIN RTOS_THREADS */
   /* add threads, ... */
   /* USER CODE END RTOS_THREADS */
 
-}
-
-/* USER CODE BEGIN Header_foc_task_fun */
-/**
-  * @brief  Function implementing the foc_task thread.
-  * @param  argument: Not used
-  * @retval None
-  */
-/* USER CODE END Header_foc_task_fun */
-__weak void foc_task_fun(void const * argument)
-{
-  /* USER CODE BEGIN foc_task_fun */
-  /* Infinite loop */
-  for(;;)
-  {
-    osDelay(1);
-  }
-  /* USER CODE END foc_task_fun */
 }
 
 /* USER CODE BEGIN Header_dbug_info_fun */
@@ -176,22 +153,22 @@ __weak void dbug_info_fun(void const * argument)
   /* USER CODE END dbug_info_fun */
 }
 
-/* USER CODE BEGIN Header_setupTaskFun */
+/* USER CODE BEGIN Header_entey_task_fun */
 /**
-* @brief Function implementing the setupTask thread.
+* @brief Function implementing the entey_task thread.
 * @param argument: Not used
 * @retval None
 */
-/* USER CODE END Header_setupTaskFun */
-__weak void setupTaskFun(void const * argument)
+/* USER CODE END Header_entey_task_fun */
+__weak void entey_task_fun(void const * argument)
 {
-  /* USER CODE BEGIN setupTaskFun */
+  /* USER CODE BEGIN entey_task_fun */
   /* Infinite loop */
   for(;;)
   {
     osDelay(1);
   }
-  /* USER CODE END setupTaskFun */
+  /* USER CODE END entey_task_fun */
 }
 
 /* Private application code --------------------------------------------------*/

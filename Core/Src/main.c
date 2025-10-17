@@ -74,6 +74,7 @@ int main(void)
   MX_I2C1_Init();
   MX_SPI3_Init();
   MX_USART2_UART_Init();
+  MX_TIM7_Init();
   /* USER CODE BEGIN 2 */
 
   /* USER CODE END 2 */
@@ -161,8 +162,9 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
     HAL_IncTick();
   }
   /* USER CODE BEGIN Callback 1 */
-  else if (htim->Instance == TIM1) {
-    task_info_inc_Callback();
+  else {
+    void TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim);
+    TIM_PeriodElapsedCallback(htim);
   }
   /* USER CODE END Callback 1 */
 }

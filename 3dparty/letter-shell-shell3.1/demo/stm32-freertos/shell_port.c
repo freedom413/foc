@@ -17,19 +17,15 @@
 #include "shell.h"
 #include <stdint.h>
 #include <stdio.h>
-// #include "cevent.h"
-// #include "log.h"
+#include "shell_port.h"
 
+static char shellBuffer[512];
+static SemaphoreHandle_t shellMutex;
 
 Shell shell;
-static char shellBuffer[512];
-
-static SemaphoreHandle_t shellMutex;
-static SemaphoreHandle_t txsem;
-
-#define RX_BUF_SIZE      128
-static uint8_t rxbuf[RX_BUF_SIZE];
-static StreamBufferHandle_t rxstrmbuf;
+SemaphoreHandle_t shell_tx_sem;
+uint8_t shell_rxbuf[RX_BUF_SIZE];
+StreamBufferHandle_t shell_rx_strmbuf;
 
 /**
  * @brief 用户shell写
@@ -41,10 +37,9 @@ static StreamBufferHandle_t rxstrmbuf;
  */
 short userShellWrite(char *data, unsigned short len)
 {
-    // serialTransmit(&debugSerial, (uint8_t *)data, len, 0x1FF);
     HAL_StatusTypeDef ret = HAL_UART_Transmit_DMA(&huart2, (uint8_t *)data, len);
     if (ret == HAL_OK) {
-        if (xSemaphoreTake(txsem, portMAX_DELAY) == pdTRUE) {
+        if (xSemaphoreTake(shell_tx_sem, portMAX_DELAY) == pdTRUE) {
             return len;
         }
     }
@@ -62,8 +57,7 @@ short userShellWrite(char *data, unsigned short len)
  */
 short userShellRead(char *data, unsigned short len)
 {
-    // return serialReceive(&debugSerial, (uint8_t *)data, len, 0);
-    return xStreamBufferReceive(rxstrmbuf, data, len, portMAX_DELAY);
+    return xStreamBufferReceive(shell_rx_strmbuf, data, len, portMAX_DELAY);
 }
 
 /**
@@ -99,8 +93,8 @@ int userShellUnlock(Shell *shell)
 void userShellInit(void)
 {
     shellMutex = xSemaphoreCreateRecursiveMutex();
-    txsem = xSemaphoreCreateBinary();
-    rxstrmbuf = xStreamBufferCreate(RX_BUF_SIZE, 1);
+    shell_tx_sem = xSemaphoreCreateBinary();
+    shell_rx_strmbuf = xStreamBufferCreate(RX_BUF_SIZE, 1);
 
     shell.write = userShellWrite;
     shell.read = userShellRead;
@@ -111,7 +105,6 @@ void userShellInit(void)
     {
         printf("shell task creat failed");
     }
-    HAL_UARTEx_ReceiveToIdle_DMA(&huart2, rxbuf,  RX_BUF_SIZE);
+    HAL_UARTEx_ReceiveToIdle_DMA(&huart2, shell_rxbuf,  RX_BUF_SIZE);
 }
-// CEVENT_EXPORT(EVENT_INIT_STAGE2, userShellInit);
 

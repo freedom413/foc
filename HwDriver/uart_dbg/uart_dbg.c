@@ -66,7 +66,7 @@ static void get_rtos_runtime(void const *argument)
 SHELL_EXPORT_CMD(SHELL_CMD_PERMISSION(0)|SHELL_CMD_TYPE(SHELL_TYPE_CMD_FUNC)|SHELL_CMD_PARAM_NUM(0),
 cpuload, get_rtos_runtime, cpu memory info);
 
-static volatile long long FreeRTOSRunTimeTicks;
+volatile long long FreeRTOSRunTimeTicks;
 
 void configureTimerForRunTimeStats(void)
 {
@@ -78,10 +78,6 @@ unsigned long getRunTimeCounterValue(void)
     return FreeRTOSRunTimeTicks;
 }
 
-void task_info_inc_Callback(void)
-{
-    FreeRTOSRunTimeTicks++;
-}
 
 #if 0
 void i2c_addr_check(I2C_HandleTypeDef *hi2c)

@@ -57,8 +57,10 @@ void Error_Handler(void);
 /* USER CODE END EFP */
 
 /* Private defines -----------------------------------------------------------*/
-#define MAG_CS_Pin GPIO_PIN_12
-#define MAG_CS_GPIO_Port GPIOC
+#define LCD_BL_Pin GPIO_PIN_15
+#define LCD_BL_GPIO_Port GPIOB
+#define MAG_CS_Pin GPIO_PIN_15
+#define MAG_CS_GPIO_Port GPIOA
 
 /* USER CODE BEGIN Private defines */
 

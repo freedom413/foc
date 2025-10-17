@@ -56,6 +56,7 @@ target_sources(${CMAKE_PROJECT_NAME} PRIVATE
     3dparty/letter-shell-shell3.1/demo/stm32-freertos/shell_port.c
     HwDriver/motor_pwm/motor_pwm.c
     HwDriver/uart_dbg/uart_dbg.c
+    User/common_callback.c
 )
 
 # Add include paths

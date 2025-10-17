@@ -1,29 +1,17 @@
 #include "mt6701_port.h"
 #include "main.h"
-#include "shell_port.h"
-#include "stm32f4xx_hal_gpio.h"
-#include "stm32f4xx_hal_spi.h"
 #include <errno.h>
 #include <stdint.h>
-
-static int mag_timeout_count = 0;
-SHELL_EXPORT_VAR(SHELL_CMD_PERMISSION(0)|SHELL_CMD_TYPE(SHELL_TYPE_VAR_INT), mag_timeout_count, &mag_timeout_count, mt6700 read angle timeout count);
+#include "shell_port.h"
+#include "stm32f4xx_hal_def.h"
+#include "stm32f4xx_hal_gpio.h"
+#include "stm32f4xx_hal_spi.h"
 
 static error_t __hmag1_ssi_read(uint8_t *data, uint8_t len)
 {   
-    uint32_t timeoutcount = 200;
-    while (HAL_SPI_GetState(&hspi3) != HAL_SPI_STATE_READY)
-    {
-        if (timeoutcount-- == 0)
-        {   
-            mag_timeout_count++;
-            return -EBUSY; // 在超时时直接返回，避免继续执行后续代码
-        }
-    }
-
     HAL_GPIO_WritePin(MAG_CS_GPIO_Port, MAG_CS_Pin, GPIO_PIN_RESET);
-    HAL_StatusTypeDef ret = HAL_SPI_Receive(&hspi3, data, len, 100);
-    HAL_GPIO_WritePin(MAG_CS_GPIO_Port, MAG_CS_Pin, GPIO_PIN_SET);
+    HAL_StatusTypeDef ret = HAL_SPI_Receive(&hspi3, data, len,HAL_MAX_DELAY);
+    HAL_GPIO_WritePin(MAG_CS_GPIO_Port, MAG_CS_Pin,  GPIO_PIN_SET);
     if (ret != HAL_OK) {
         return -EIO;
     }

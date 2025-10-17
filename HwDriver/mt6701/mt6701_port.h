@@ -8,5 +8,6 @@
 
 extern mt6701_handle_t hmag1;
 extern mt6701_port_t hmag1_port;
+
 #endif
 
