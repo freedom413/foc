@@ -9,12 +9,12 @@
 ## 硬件实拍
 
 下面展示部分样例：
-
-<img src="img/img%20(1).jpg" alt="hardware-1" width="480" />
-<img src="img/img%20(3).jpg" alt="hardware-2" width="480" />
-<img src="img/img%20(4).jpg" alt="hardware-3" width="480" />
-
-（如果想展示更多图片，可在 README 中添加更多 img 路径）
+![1](/img/img1.jpg "Magic Gardens")
+![3](/img/img3.jpg "Magic Gardens")
+![4](/img/img4.jpg "Magic Gardens")
+![5](/img/img5.jpg "Magic Gardens")
+![6](/img/img6.jpg "Magic Gardens")
+![7](/img/img7.jpg "Magic Gardens")
 
 ---
 
