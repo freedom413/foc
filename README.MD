@@ -9,12 +9,12 @@
 ## 硬件实拍
 
 下面展示部分样例：
-![1](/img/img1.jpg "Magic Gardens")
-![3](/img/img3.jpg "Magic Gardens")
-![4](/img/img4.jpg "Magic Gardens")
-![5](/img/img5.jpg "Magic Gardens")
-![6](/img/img6.jpg "Magic Gardens")
-![7](/img/img7.jpg "Magic Gardens")
+![1](/img/img0.jpg "Magic Gardens")
+![3](/img/img2.jpg "Magic Gardens")
+![4](/img/img3.jpg "Magic Gardens")
+![5](/img/img4.jpg "Magic Gardens")
+![6](/img/img5.jpg "Magic Gardens")
+![7](/img/img6.jpg "Magic Gardens")
 
 ---
 
