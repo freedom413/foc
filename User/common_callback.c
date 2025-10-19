@@ -67,7 +67,7 @@ void TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
         FreeRTOSRunTimeTicks++;
     }
     else if (htim->Instance == TIM7) {
-    // HAL_GPIO_WritePin(LCD_BL_GPIO_Port, LCD_BL_Pin, GPIO_PIN_SET);
+    HAL_GPIO_WritePin(LCD_BL_GPIO_Port, LCD_BL_Pin, GPIO_PIN_SET);
     error_t ret = 0;
     ret = mt6701_update(&hmag1);
     if (ret) {
@@ -80,7 +80,7 @@ void TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
     }
 
 
-    // HAL_GPIO_WritePin(LCD_BL_GPIO_Port, LCD_BL_Pin, GPIO_PIN_RESET);
+    HAL_GPIO_WritePin(LCD_BL_GPIO_Port, LCD_BL_Pin, GPIO_PIN_RESET);
     }
 }
 

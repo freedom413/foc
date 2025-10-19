@@ -35,7 +35,7 @@ void setup(void)
 }
 
 
-#define CH_COUNT (3)
+#define CH_COUNT (5)
 float ch_data[CH_COUNT] = {0.0f};
 
 // int foc_vel = 20;
@@ -57,7 +57,7 @@ float ch_data[CH_COUNT] = {0.0f};
 
 }
 
-
+extern float Ua,Ub,Uc,Ualpha,Ubeta;
 void dbug_info_fun(void *argument)
 {
 
@@ -66,6 +66,8 @@ void dbug_info_fun(void *argument)
     ch_data[0] = Ua;
     ch_data[1] = Ub;
     ch_data[2] = Uc;
+    ch_data[3] = Ualpha;
+    ch_data[4] = Ubeta;
     // ch_data[0] = mt6701_read_abs_angle(&hmag1);
     // ch_data[1] = mt6701_read_full_angle(&hmag1);
     // ch_data[2] = mt6701_read_angle_velocity(&hmag1);
