@@ -16,7 +16,7 @@
 #include <stdint.h>
 #include "uart_dbg.h"
 #include "motor_pwm.h"
-
+#include "lcd_fsmc.h"
 
 void entey_task_fun(void const * argument)
 { 
@@ -28,6 +28,9 @@ void entey_task_fun(void const * argument)
 void setup(void)
 { 
     HAL_GPIO_WritePin(LCD_BL_GPIO_Port, LCD_BL_Pin, GPIO_PIN_RESET);
+    tftlcd_attach_bus(&htftlcd1, TFTLCD_BASE, 320, 480);
+    tftlcd_init_driver(&htftlcd1);
+    // lcd_fill_color_fast(&htftlcd1, 0, 0, 320, 480, 0x00ff);
     mt6701_init(&hmag1, &hmag1_port, MT6701_MODE_SSI);
     motor_pwm_init();
     foc_alignSensor(7,1);

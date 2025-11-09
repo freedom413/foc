@@ -77,6 +77,27 @@ ninja
 - 通过串口连接（USART2 默认）打开 shell 调试界面，与板子进行交互。
 - 在上电或重启时，观察串口输出确认外设初始化成功。
 
+注册 LVGL 显示驱动（示例，LVGL9，假设 LV_COLOR_DEPTH = 16，颜色格式为 RGB565）：
+
+```c
+/* 在你的 display init 代码中 */
+extern void ili9488_lvgl_flush_cb(lv_disp_t * disp_drv, const lv_area_t * area, const lv_color_t * color_map);
+
+static void lvgl_disp_init(void)
+{
+	static lv_disp_draw_buf_t draw_buf;
+	static lv_color_t *buf1 = lv_mem_alloc(sizeof(lv_color_t) * 320 * 10); // buffer for 10 lines
+	lv_disp_draw_buf_init(&draw_buf, buf1, NULL, 320 * 10);
+
+	lv_disp_t *disp = lv_disp_create();
+	lv_disp_set_draw_buf(disp, &draw_buf);
+	lv_disp_set_flush_cb(disp, ili9488_lvgl_flush_cb);
+	lv_disp_enable(disp, true);
+}
+```
+
+说明：上面示例使用 LVGL 的内存分配与驱动创建 API（请根据你的 LVGL 配置调整函数名/签名）。如果你使用的是不同版本或自定义封装，请把 `ili9488_lvgl_flush_cb` 作为显示刷新回调注册到对应的 LVGL 显示驱动结构中。
+
 ---
 
 ## 常见开发任务

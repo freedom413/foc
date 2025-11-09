@@ -57,6 +57,7 @@ target_sources(${CMAKE_PROJECT_NAME} PRIVATE
     HwDriver/motor_pwm/motor_pwm.c
     HwDriver/uart_dbg/uart_dbg.c
     User/common_callback.c
+    HwDriver/lcd_fsmc/lcd_fsmc.c
 )
 
 # Add include paths
@@ -69,6 +70,7 @@ target_include_directories(${CMAKE_PROJECT_NAME} PRIVATE
     User
     3dparty/letter-shell-shell3.1/src
     3dparty/letter-shell-shell3.1/demo/stm32-freertos
+    HwDriver/lcd_fsmc
 )
 
 # Add project symbols (macros)
